@@ -5,7 +5,7 @@ import { useState } from 'react'
 const Form = (props) => {
       
       const [name, setName] = useState(null)
-      const [URL, setUrl]   = useState(null)
+      const [review, setReview]   = useState(null)
       
   /*  INSTEAD OF CALLING THESE METHODS FROM FORM & INPUT ATTRIBUTE, I CREATED THESE FUNCTIONS WITHIN onChange input function*/
     const handleNameChange = (event) => {
@@ -14,8 +14,8 @@ const Form = (props) => {
        when I use state(name) it will have the value that was stored in there*/
       setName(event.target.value)
   }
-  const handleUrlChange = (event) => {
-      setUrl(event.target.value)
+  const handleReviewChange = (event) => {
+      setReview(event.target.value)
   }
 
   const onFormSubmit = (event) => {
@@ -26,27 +26,27 @@ const Form = (props) => {
 
   return (
     /* form has onSubmit event handler func that can be used to call another func on submission, place attribute in form*/
-    <form className='form' style={{width: '80%',}} 
+    <form className='form' style={{width: '80%'}} 
     onSubmit={(event)=>{
                                     event.preventDefault()
-                                    props.onNewSubmit({ name: name, URL: URL })
-                                      /* sends the name & link to the LinkContainer through props  */ } }>  
+                                    props.onNewSubmit({ name: name, review: review })
+                                      /* sends the name & review to the LinkContainer through props  */ } }>  
 
-      {/* Logic for returning a form element with labels and inputs for link name and URL*/
+      {/* Logic for returning a form element with labels and inputs for restaurant name and review*/
          /* onChange method used in input                            */}
         <label style={{ paddingBottom:'1%'}}>Name:  <br/>
           <input style={{width: '99%', marginBottom:'3%', padding:'1%' }} type="text" id="name" name="name" onChange={ (event)=>{setName(event.target.value)}}/><br/>
         </label> 
       
-        <label style={{ paddingBottom:'1%'}}>URL:  <br/>
-          <input style={{width: '99%', marginBottom:'1%', padding:'1%' }} type="url" id="url" name="url" onChange={ (event)=>{setUrl(event.target.value)}} /><br/>
+        <label style={{ paddingBottom:'1%'}}>REVIEW:  <br/>
+          <input style={{width: '99%', marginBottom:'1%', padding:'1%' }} type="text" id="review" name="review" onChange={ (event)=>{setReview(event.target.value)}} /><br/>
         </label>
 
         {/* use input type submit to submit form's data */}
         <input type="submit" value="Submit"/>  
         
     </form>
-  )
+  )                     
 }
 
 export default Form
