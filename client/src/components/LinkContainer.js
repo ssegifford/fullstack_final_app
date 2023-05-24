@@ -91,9 +91,9 @@ const LinkContainer = (props) => {
   }
 
   return (                                  
-    <div className="container" style={{width: '80%', paddingLeft:'10%',   }}>
-      <h1>My Favorite Links</h1>
-      <p>Add a new url with a name and link to the table.</p>
+    <div className="container" style={{width: '80%', paddingLeft:'10%' }}>
+      <h1>My Favorite Vacation</h1>
+      <p>Add a new city with a name and review to the table.</p>
   
       <Table linkData ={newLinks}                            /* linkData is created prop to send data to table component */
              removeLink = {handleRemove}  />                 {/* removeLink is created prop to send data to table component*/}      
