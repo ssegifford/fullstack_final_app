@@ -34,11 +34,11 @@ const Form = (props) => {
 
       {/* Logic for returning a form element with labels and inputs for restaurant name and review*/
          /* onChange method used in input                            */}
-        <label style={{ paddingBottom:'1%'}}>Name:  <br/>
+        <label style={{ paddingBottom:'1%'}}>Restaurant Name:  <br/>
           <input style={{width: '99%', marginBottom:'3%', padding:'1%' }} type="text" id="name" name="name" onChange={ (event)=>{setName(event.target.value)}}/><br/>
         </label> 
       
-        <label style={{ paddingBottom:'1%'}}>REVIEW:  <br/>
+        <label style={{ paddingBottom:'1%'}}>Review:  <br/>
           <input style={{width: '99%', marginBottom:'1%', padding:'1%' }} type="text" id="review" name="review" onChange={ (event)=>{setReview(event.target.value)}} /><br/>
         </label>
 
