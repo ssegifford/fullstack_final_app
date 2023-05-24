@@ -13,7 +13,7 @@ const pool = new Pool({
 const getLinks = (req, res)=>{
     pool.query('SELECT * FROM links ORDER BY id', (error, result) =>{
         if(error){
-            throw error;
+            console.log(error);
         }
         res.status(200).json(result.rows)
     })
@@ -25,7 +25,7 @@ const getLinkById = (req, res) => {
   
     pool.query('SELECT * FROM links WHERE id = $1', [id], (error, results) => {
       if (error) {
-        throw error
+        console.log(error)
       }
       res.status(200).json(results.rows)
     })
@@ -36,7 +36,7 @@ const createLink = (request, response) => {
 
   pool.query('INSERT INTO links (name, URL) VALUES ($1, $2) RETURNING *', [name, URL], (error, results) => {
     if (error) {
-      throw error
+      console.log(error)
     }
     response.status(201).send(`Link added with ID: ${results.rows[0].id}`)
   })
@@ -51,7 +51,7 @@ const updateLink = (request, response) => {
     [name, URL, id],
     (error, results) => {
       if (error) {
-        throw error
+        console.log(error)
       }
       response.status(200).send(`Link modified with ID: ${id}`)
     }
@@ -63,7 +63,7 @@ const deleteLink = (request, response) => {
 
   pool.query('DELETE FROM links WHERE id = $1', [id], (error, results) => {
     if (error) {
-      throw error
+      console.log(error)
     }
     response.status(200).send(`Link deleted with ID: ${id}`)
   })

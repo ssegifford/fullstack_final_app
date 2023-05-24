@@ -5,9 +5,9 @@ const TableHeader = () => {
   return (
     <thead>
       <tr>
-        <th>FAVORITE VACATION CITY</th>
-        <th>REVIEW</th>
-        <th>REMOVE</th>
+        <th>YOUR FAVORITE RESTAURANT</th>
+        <th>TAKEOUT</th>
+        <th>Remove</th>
       </tr>
     </thead>
   )
@@ -16,15 +16,15 @@ const TableHeader = () => {
 const TableBody = (props) => {
   // boilerplate table body functional component
   // we use Array.map to create table rows from LinkData passed via props
-  const rows = props.cityData.map((row, index) => {
+  const rows = props.linkData.map((row, index) => {
     return (
       <tr  key={index}>
-        <td style={{borderBottom:'1px solid #ddd', padding:'2%' }}>{row.city}</td>
+        <td style={{borderBottom:'1px solid #ddd', padding:'2%' }}>{row.name}</td>
         <td style={{borderBottom:'1px solid #ddd' }}>
-          <a  href={row.review}>{row.review}</a>
+          <a  href={row.URL}>{row.URL}</a>
         </td>
         <td style={{borderBottom:'1px solid #ddd' }}>
-          <button style={{backgroundColor:'cornflowerblue', padding:'5%', borderRadius:'5px', color:'white'}} onClick={() => props.removeReview(index)}>Delete</button>
+          <button style={{backgroundColor:'cornflowerblue', padding:'5%', borderRadius:'5px', color:'white'}} onClick={() => props.removeLink(index)}>Delete</button>
         </td> 
       </tr>
     )
@@ -39,7 +39,7 @@ const Table = (props) => {
     return(
       <table style={{ width: '80%', textAlign:'left'}}  >
          <TableHeader />
-        <TableBody cityData={props.cityData}  removeReview={props.removeReview} />
+        <TableBody linkData={props.linkData}  removeLink={props.removeLink} />
       </table>
       )
   }
