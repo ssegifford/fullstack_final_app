@@ -6,7 +6,7 @@ const TableHeader = () => {
     <thead>
       <tr>
         <th>YOUR FAVORITE RESTAURANT</th>
-        <th>TAKEOUT</th>
+        <th>URL</th>
         <th>Remove</th>
       </tr>
     </thead>

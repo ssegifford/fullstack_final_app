@@ -4,7 +4,7 @@ import Form from './Form';
 
 const LinkContainer = (props) => {
   
-  const [newLinks, setNewLinks] = useState([])    /* creates an array of state */
+  const [newReview, setNewReview] = useState([])    /* creates an array of state */
   const[message, setMessages] = useState(null)
   
   const fetchAPI = async () => {
@@ -52,57 +52,56 @@ const LinkContainer = (props) => {
   useEffect(() => {
     const storedLinks = localStorage.getItem('links');
     if (storedLinks) {
-      setNewLinks(JSON.parse(storedLinks));
+      setNewReview(JSON.parse(storedLinks));
     }
   }, []);
 
-  // Update localStorage whenever newLinks state changes
+  // Update localStorage whenever newReview state changes
   useEffect(() => {
-    localStorage.setItem('links', JSON.stringify(newLinks));
-  }, [newLinks]);
+    localStorage.setItem('links', JSON.stringify(newReview));
+  }, [newReview]);
 
 
 
-  const handleRemove = async (index) => {   /* Create logic for setting the state to filter array and remove favLink at index */
-    const linkToRemove = newLinks[index];  
+  const handleRemove = async (index) => {   /* Create logic for setting the state to filter array and remove review at index */
+    const linkToRemove = newReview[index];  
 
     try {
       await fetch(`/links/${linkToRemove.id}`, { method: 'DELETE' });
-      const filter = newLinks.filter((_, i) => i !== index);/*creates new array and filters(removes) out link at index of existing array */
-      setNewLinks(filter);
+      const filter = newReview.filter((_, i) => i !== index);/*creates new array and filters(removes) out review at index of existing array */
+      setNewReview(filter);
     } catch (error) {
       console.log(error);
     }
     
   }
 
-  const handleSubmit = (favLink) => {       /* Create logic to set state and add new favLink to favLinks array in state.
-                                               Called whenever the form submits a new link. Form will pass back the message*/
-    let favLinks = [...newLinks]            /* Creating a new array with old links; */
-    favLinks.push(favLink)                  /* Then adding new link to the array; */
-    setNewLinks(favLinks)                   /*  Then setting entire state to array with the new links*/
+  const handleSubmit = (restReview) => {       
+    let restReviews = [...newReview]            
+    restReviews.push(restReview)                  
+    setNewReview(restReviews)                  
  
     /* shorter version below
-    let favLinks = [...newLinks, favLink]; 
-    setNewLinks(favLinks); */
+    let restReviews = [...newReview, setNewReview]; 
+    setNewReview(favLinks); */
 
-    postLink(favLink)
+    postLink(restReview)
     fetchAPI()
   }
 
   return (                                  
     <div className="container" style={{width: '80%', paddingLeft:'10%',   }}>
       <h1>My Favorite Restaurant</h1>
-      <p>Add a new url with a restaurant name and link to the table.</p>
+      <p>Add a new review with your favorite restaurant name and experience to the table.</p>
   
-      <Table linkData ={newLinks}                            /* linkData is created prop to send data to table component */
-             removeLink = {handleRemove}  />                 {/* removeLink is created prop to send data to table component*/}      
+      <Table linkData ={newReview}                            /* linkData is created prop to send data to table component */
+             removeReview = {handleRemove}  />                 {/* removeReview is created prop to send data to table component*/}      
       <br />
 
       <h3>Add New</h3>
       <Form onNewSubmit={handleSubmit} />     {/* onNewSubmit is a created as a prop to receive data from form component file */}    
     </div>
   )
-}
+}       
 
 export default LinkContainer
