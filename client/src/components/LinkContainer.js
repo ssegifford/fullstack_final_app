@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import Table from './Table';
 import Form from './Form';
 
-
-
 const LinkContainer = (props) => {
   
   const [newReview, setNewReview] = useState([])    /* creates an array of state */
@@ -22,7 +20,7 @@ const LinkContainer = (props) => {
   }
 
   const postLink = async () => {
-    let testReview = {
+    let testLink = {
       name: "Test",
       URL: "test.com"
     }
@@ -33,7 +31,7 @@ const LinkContainer = (props) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(testReview),
+        body: JSON.stringify(testLink),
       })
       console.log(response)
       let message = response.text()
@@ -52,7 +50,7 @@ const LinkContainer = (props) => {
 
   // Fetch data from localStorage on component mount
   useEffect(() => {
-    const storedLinks = localStorage.getItem('links');
+    const storedLinks = localStorage.getItem('reviews');
     if (storedLinks) {
       setNewReview(JSON.parse(storedLinks));
     }
@@ -60,16 +58,16 @@ const LinkContainer = (props) => {
 
   // Update localStorage whenever newReview state changes
   useEffect(() => {
-    localStorage.setItem('links', JSON.stringify(newReview));
+    localStorage.setItem('reviews', JSON.stringify(newReview));
   }, [newReview]);
 
 
 
   const handleRemove = async (index) => {   /* Create logic for setting the state to filter array and remove review at index */
-    const linkToRemove = newReview[index];  
+    const reviewToRemove = newReview[index];  
 
     try {
-      await fetch(`/links/${linkToRemove.id}`, { method: 'DELETE' });
+      await fetch(`/reviews/${reviewToRemove.id}`, { method: 'DELETE' });
       const filter = newReview.filter((_, i) => i !== index);/*creates new array and filters(removes) out review at index of existing array */
       setNewReview(filter);
     } catch (error) {
@@ -78,9 +76,14 @@ const LinkContainer = (props) => {
     
   }
 
-  const handleSubmit = (restReview) => {     
+  const handleSubmit = (restReview) => {       
+    let restReviews = [...newReview]            
+    restReviews.push(restReview)                  
+    setNewReview(restReviews)                  
+ 
+    /* shorter version below
     let restReviews = [...newReview, setNewReview]; 
-    setNewReview(restReviews);
+    setNewReview(favLinks); */
 
     postLink(restReview)
     fetchAPI()
@@ -88,8 +91,8 @@ const LinkContainer = (props) => {
 
   return (                                  
     <div className="container" style={{width: '80%', paddingLeft:'10%',   }}>
-      <h1>Restaurant Reviews</h1>
-      <p>Add a new review with your favorite restaurant name and your experience to the table.</p>
+      <h1>My Favorite Restaurant</h1>
+      <p>Add a new review with your favorite restaurant name and experience to the table.</p>
   
       <Table linkData ={newReview}                            /* linkData is created prop to send data to table component */
              removeReview = {handleRemove}  />                 {/* removeReview is created prop to send data to table component*/}      

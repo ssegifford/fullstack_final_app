@@ -21,7 +21,7 @@ const TableBody = (props) => {
       <tr  key={index}>
         <td style={{borderBottom:'1px solid #ddd', padding:'2%' }}>{row.name}</td>
         <td style={{borderBottom:'1px solid #ddd' }}>
-          <a  href={row.review}>{row.review}</a>
+          {row.review}
         </td>
         <td style={{borderBottom:'1px solid #ddd' }}>
           <button style={{backgroundColor:'cornflowerblue', padding:'5%', borderRadius:'5px', color:'white'}} onClick={() => props.removeReview(index)}>Delete</button>

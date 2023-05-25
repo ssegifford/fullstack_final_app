@@ -2,7 +2,7 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'me',
   host: 'localhost',
-  database: 'restaurantReviews',
+  database: 'reviews',
   password: 'postgres',
   port: 5432,
 })
@@ -15,11 +15,11 @@ const getReviews = (req, res)=>{
         if(error){
             console.log(error);
         }
-        res.status(200).json(result.rows)
+        res.status(200).json(result)
     })
 }
 
-// Here we’ll get the custom id parameter by the URL and use a WHERE clause to display the result.
+// Here we’ll get the custom id parameter by the review and use a WHERE clause to display the result.
 const getReviewById = (req, res) => {
     const id = parseInt(req.params.id)
   
@@ -27,14 +27,14 @@ const getReviewById = (req, res) => {
       if (error) {
         console.log(error)
       }
-      res.status(200).json(results.rows)
+      res.status(200).json(results)
     })
   }
 
 const createReview = (request, response) => {
   const { name, review } = request.body
 
-  pool.query('INSERT INTO restaurantReviews (name, URL) VALUES ($1, $2) RETURNING *', [name, review], (error, results) => {
+  pool.query('INSERT INTO restaurantReviews (name, review) VALUES ($1, $2) RETURNING *', [name, review], (error, results) => {
     if (error) {
       console.log(error)
     }
@@ -47,7 +47,7 @@ const updateReview = (request, response) => {
   const { name, review } = request.body
 
   pool.query(
-    'UPDATE restaurantReviews SET name = $1, URL = $2 WHERE id = $3',
+    'UPDATE restaurantReviews SET name = $1, review = $2 WHERE id = $3',
     [name, review, id],
     (error, results) => {
       if (error) {
