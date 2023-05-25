@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-
-
 const Form = (props) => {
       
       const [name, setName] = useState(null)

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import Table from './Table';
 import Form from './Form';
 
+
+
 const LinkContainer = (props) => {
   
   const [newReview, setNewReview] = useState([])    /* creates an array of state */
@@ -10,7 +12,7 @@ const LinkContainer = (props) => {
   const fetchAPI = async () => {
     // fetch data from db for table
     try{
-      let response = await fetch('/links')
+      let response = await fetch('/reviews')
       let data = await response.json()
       setMessages(data.message)
     }
@@ -20,18 +22,18 @@ const LinkContainer = (props) => {
   }
 
   const postLink = async () => {
-    let testLink = {
+    let testReview = {
       name: "Test",
       URL: "test.com"
     }
 
     try {
-      let response = await fetch('/newLink', {
+      let response = await fetch('/newReview', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(testLink),
+        body: JSON.stringify(testReview),
       })
       console.log(response)
       let message = response.text()
@@ -76,14 +78,9 @@ const LinkContainer = (props) => {
     
   }
 
-  const handleSubmit = (restReview) => {       
-    let restReviews = [...newReview]            
-    restReviews.push(restReview)                  
-    setNewReview(restReviews)                  
- 
-    /* shorter version below
+  const handleSubmit = (restReview) => {     
     let restReviews = [...newReview, setNewReview]; 
-    setNewReview(favLinks); */
+    setNewReview(restReviews);
 
     postLink(restReview)
     fetchAPI()
@@ -91,8 +88,8 @@ const LinkContainer = (props) => {
 
   return (                                  
     <div className="container" style={{width: '80%', paddingLeft:'10%',   }}>
-      <h1>My Favorite Restaurant</h1>
-      <p>Add a new review with your favorite restaurant name and experience to the table.</p>
+      <h1>Restaurant Reviews</h1>
+      <p>Add a new review with your favorite restaurant name and your experience to the table.</p>
   
       <Table linkData ={newReview}                            /* linkData is created prop to send data to table component */
              removeReview = {handleRemove}  />                 {/* removeReview is created prop to send data to table component*/}      
