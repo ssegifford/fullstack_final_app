@@ -25,11 +25,11 @@ app.get('/', (req, res)=>{
 })
 
 // Create, Read, Update, Delete
-app.get('/links', db.getLinks)
-app.get('/links/:id', db.getLinkById);
-app.post('/newLink', db.createLink)
-app.put('/links/:id', db.updateLink)
-app.delete('/links/:id', db.deleteLink)
+app.get('/reviews', db.getReviews)
+app.get('/reviews/:id', db.getReviewById);
+app.post('/newReview', db.createReview)
+app.put('/reviews/:id', db.updateReview)
+app.delete('/reviews/:id', db.deleteReview)
 
 // start app on port
 app.listen(port, () => {
