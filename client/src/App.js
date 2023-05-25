@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 function App() {
 
   return (
-    <div className="App" style={{backgroundColor: 'orange'}}>
+    <div className="App" style={{backgroundColor: 'darkOrange'}}>
       <LinkContainer />
     </div>
   )
