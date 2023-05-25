@@ -19,7 +19,7 @@ const LinkContainer = (props) => {
     }
   }
 
-  const postLink = async () => {
+  const postReview = async () => {
     let testLink = {
       name: "Test",
       URL: "test.com"
@@ -85,7 +85,7 @@ const LinkContainer = (props) => {
     let restReviews = [...newReview, setNewReview]; 
     setNewReview(favLinks); */
 
-    postLink(restReview)
+    postReview(restReview)
     fetchAPI()
   }
 
